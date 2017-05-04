@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="utf-8">
+	<title>个人博客</title>
+	<link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.css">
+	<link rel="stylesheet" href="/static/css/style.css">
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/semantic-ui/2.1.8/semantic.min.js"></script>
+</head>
+<body>
+
+<div class="nav">
+	<div class="ui grid">
+		<div class="three wide column"></div>
+		<div class="ten wide column">
+			<a href="/posts"><h1>个人博客</h1></a>
+		</div>
+	</div>
+</div>
+
+<div class="nav-setting">
+	<div class="ui buttons">
+		<div class="ui floating dropdown button">
+			<i class="icon bars"></i>
+			<div class="menu" th:if="${currentUser}">
+				<a class="item" th:href="@{/posts(author=${currentUser.id})}">个人主页</a>
+				<div class="divider"></div>
+				<a class="item" href="/posts/create">发表文章</a>
+				<a class="item">
+					<form action="/logout" method="post">
+						<button class="ui green basic button" type="submit">登出</button>
+					</form>
+				</a>
+			</div>
+			<div class="menu" th:if="${currentUser} == null">
+				<a class="item" href="/login">登录</a>
+				<a class="item" href="/signup">注册</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="ui grid">
+	<div class="three wide column"></div>
+	<div class="ten wide column">
+
+		<div th:if="${success}" class="ui success message">
+			<p th:text="${success}"></p>
+		</div>
+
+		<div th:if="${error}"  class="ui error message">
+			<p th:text="${error}"> </p>
+		</div>
+
+	</div>
+</div>
+
+<div layout:fragment="content">Fake content</div>
+
+<script type="text/javascript">
+	// 点击按钮弹出下拉框
+	$('.ui.dropdown').dropdown();
+	// 鼠标悬浮在头像上，弹出气泡提示框
+	$('.post-content .avatar').popup({
+		inline: true,
+		position: 'bottom right',
+		lastResort: 'bottom right',
+	});
+</script>
+</body>
+</html>
