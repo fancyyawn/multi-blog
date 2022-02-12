@@ -1,9 +1,0 @@
-server:
-  port: 8091
-
-spring:
-  data:
-    mongodb:
-      database: blog
-
-spring.thymeleaf.cache: false
